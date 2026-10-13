@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Buku Panduan Lengkap: Data Mining dengan Python - USM</title>
+  <!-- Google Fonts: Inter & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --primary-dark: #1d4ed8;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --code-bg: #0b1120;
+      --code-text: #e2e8f0;
+      --card-analogi: #ecfdf5;
+      --border-analogi: #10b981;
+      --card-kerja: #eff6ff;
+      --border-kerja: #3b82f6;
+      --card-tips: #fefce8;
+      --border-tips: #eab308;
+      --card-error: #fef2f2;
+      --border-error: #ef4444;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-light: #1e3a8a;
+      --primary-dark: #60a5fa;
+      --bg: #090d16;
+      --surface: #131b2e;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+      --code-bg: #060911;
+      --card-analogi: #064e3b22;
+      --border-analogi: #059669;
+      --card-kerja: #1e3a8a22;
+      --border-kerja: #2563eb;
+      --card-tips: #713f1222;
+      --border-tips: #ca8a04;
+      --card-error: #7f1d1d22;
+      --border-error: #dc2626;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      transition: background-color 0.25s, color 0.25s;
+      padding-bottom: 85px;
+    }
+
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #ec4899);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 990;
+      box-shadow: var(--shadow);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-icon {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .header-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.2s;
+    }
+    .btn-icon:active {
+      transform: scale(0.92);
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      color: white;
+      padding: 24px 20px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      font-size: 14px;
+      opacity: 0.95;
+      line-height: 1.5;
+    }
+
+    .search-box {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      box-shadow: var(--shadow);
+    }
+    .search-box input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    .chapter {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .sub-section {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin: 18px 0;
+    }
+
+    .chapter-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    h2 {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--text);
+      line-height: 1.35;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 14px 0 8px 0;
+      color: var(--text);
+    }
+
+    p {
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    .card-callout {
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0;
+      border-left: 4px solid;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .card-callout .card-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .card-analogi {
+      background: var(--card-analogi);
+      border-color: var(--border-analogi);
+    }
+    .card-analogi .card-title { color: #059669; }
+
+    .card-kerja {
+      background: var(--card-kerja);
+      border-color: var(--border-kerja);
+    }
+    .card-kerja .card-title { color: #2563eb; }
+
+    .card-tips {
+      background: var(--card-tips);
+      border-color: var(--border-tips);
+    }
+    .card-tips .card-title { color: #d97706; }
+
+    .card-error {
+      background: var(--card-error);
+      border-color: var(--border-error);
+    }
+    .card-error .card-title { color: #dc2626; }
+
+    .card-explain {
+      background: rgba(99, 102, 241, 0.08);
+      border-left: 4px solid #6366f1;
+    }
+    .card-explain .card-title { color: #4f46e5; }
+
+    .code-wrapper {
+      position: relative;
+      margin: 14px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--code-bg);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #94a3b8;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #e2e8f0;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-copy:active {
+      transform: scale(0.92);
+      background: #10b981;
+    }
+
+    pre {
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--code-text);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13.5px;
+    }
+
+    [data-theme="dark"] code {
+      background: #1e293b;
+      color: #93c5fd;
+    }
+
+    pre code {
+      background: transparent !important;
+      color: inherit !important;
+      padding: 0 !important;
+    }
+
+    .terminal-output {
+      background: #020617;
+      color: #38bdf8;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12.5px;
+      line-height: 1.45;
+      margin: 12px 0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .chart-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      margin: 14px 0;
+    }
+
+    .chart-preview {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      background: white;
+      display: block;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    }
+
+    .chart-caption {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 6px;
+      z-index: 990;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.06);
+    }
+
+    .bottom-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .bottom-btn span {
+      font-size: 18px;
+    }
+    .bottom-btn.active {
+      color: var(--primary);
+    }
+
+    #drawer {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 290px;
+      height: 100%;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 1001;
+      padding: 20px 16px;
+      overflow-y: auto;
+      transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 25px rgba(0,0,0,0.15);
+    }
+    #drawer.open {
+      right: 0;
+    }
+
+    #drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+      z-index: 1000;
+      display: none;
+    }
+    #drawer-overlay.show {
+      display: block;
+    }
+
+    .drawer-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .drawer-nav {
+      list-style: none;
+      margin: 0;
+    }
+
+    .drawer-nav li {
+      margin-bottom: 8px;
+    }
+
+    .drawer-nav a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+    .drawer-nav a:hover, .drawer-nav a:active {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <header>
+    <div class="header-left">
+      <div class="badge-icon">⛏️</div>
+      <div>
+        <div class="header-title">Data Mining Modul 1</div>
+        <div class="header-subtitle">Universitas Semarang (USM)</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-icon" id="theme-btn" title="Ganti Tema">🌓</button>
+      <button class="btn-icon" id="menu-btn" title="Daftar Isi">☰</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <div class="hero">
+      <span class="hero-badge">Panduan Lengkap &amp; Visual Interaktif</span>
+      <h1>Praktikum 1: Pengenalan Data dengan Python</h1>
+      <p>Buku pegangan interaktif dilengkapi kode proyek asli, analogi pemula, kasus dunia kerja, serta hasil grafik visual riil.</p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Cari materi (misal: describe, heatmap, korelasi)...">
+    </div>
+
+    <!-- BAB 1: INTUISI DASAR -->
+    <section class="chapter" id="bab1">
+      <span class="chapter-tag">BAB I: INTUISI DASAR</span>
+      <h2>🕵️ Menjadi "Detektif Data"</h2>
+      <p>Data Mining adalah proses menemukan pola, tren, dan pengetahuan tersembunyi dari tumpukan data berukuran raksasa. Tanpa analisis, data hanyalah tumpukan angka mati.</p>
+
+      <div class="card-callout card-analogi">
+        <div class="card-title">💡 Analogi Popok Bayi &amp; Kopi Kaleng:</div>
+        Sebuah supermarket menemukan pola menarik: <em>setiap hari Jumat sore, para ayah muda yang membeli popok bayi 80% juga membeli minuman kopi kaleng</em>. Dengan memindahkan rak kopi ke sebelah rak popok, omset toko langsung naik pesat! Inilah yang disebut "Knowledge Discovery" (menemukan emas dari tumpukan data).
+      </div>
+
+      <h3>Excel vs Python di Dunia Industri:</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Fitur</th>
+              <th>Microsoft Excel</th>
+              <th>Python (Pandas)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Kapasitas</strong></td>
+              <td>Maks. 1 juta baris (langsung freeze)</td>
+              <td>Jutaan hingga miliaran baris</td>
+            </tr>
+            <tr>
+              <td><strong>Otomasi</strong></td>
+              <td>Manual klik rumus berulang</td>
+              <td>Sekali buat script, jalan otomatis</td>
+            </tr>
+            <tr>
+              <td><strong>Kesiapan AI</strong></td>
+              <td>Sangat minim</td>
+              <td>Standar emas Machine Learning dunia</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BAB 2: PERSIAPAN ALAT -->
+    <section class="chapter" id="bab2">
+      <span class="chapter-tag">BAB II: PERSIAPAN LINGKUNGAN KERJA</span>
+      <h2>🛠️ Panca-Indera Library Python</h2>
+      <p>Sebelum memasak, koki menyiapkan peralatan. Di Data Science kita punya 5 pustaka wajib:</p>
+      <ul>
+        <li><strong>NumPy:</strong> Otak matematika kilat array &amp; matriks angka.</li>
+        <li><strong>Pandas:</strong> Pembuat DataFrame ("Tabel Excel versi Python").</li>
+        <li><strong>Matplotlib:</strong> Kuas pembuat grafik dasar 2D.</li>
+        <li><strong>Seaborn:</strong> Kuas pembuat visualisasi statistik modern &amp; elegan.</li>
+        <li><strong>SciPy:</strong> Komputasi ilmiah &amp; statistika lanjutan.</li>
+      </ul>
+
+      <!-- Sub 1.2 Proyek Asli -->
+      <div class="sub-section">
+        <h3>📁 Proyek Asli: Verifikasi Lingkungan Kerja</h3>
+        <p>File proyek: <code>1_2_verifikasi_library.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>1_2_verifikasi_library.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>import numpy, pandas, matplotlib, seaborn, scipy
+
+print("Semua library berhasil diinstal!")
+print("NumPy:", numpy.__version__)
+print("Pandas:", pandas.__version__)
+print("Matplotlib:", matplotlib.__version__)
+print("Seaborn:", seaborn.__version__)
+print("SciPy:", scipy.__version__)</code></pre>
+        </div>
+        <p><strong>Hasil Output di Terminal:</strong></p>
+        <div class="terminal-output">Semua library berhasil diinstal!
+NumPy: 2.4.5
+Pandas: 3.0.3
+Matplotlib: 3.11.2
+Seaborn: 0.13.2
+SciPy: 1.18.1</div>
+      </div>
+    </section>
+
+    <!-- BAB 3: PANDAS DATAFRAME -->
+    <section class="chapter" id="bab3">
+      <span class="chapter-tag">BAB III: PENGOLAHAN TABULAR</span>
+      <h2>📊 Eksplorasi Data dengan Pandas</h2>
+
+      <!-- Sub 2.1 -->
+      <div class="sub-section">
+        <h3>2.1 Membuat DataFrame Sederhana</h3>
+        <p>Mengubah data mentah menjadi bentuk tabel dua dimensi lengkap dengan nama kolom dan indeks baris.</p>
+        <div class="card-callout card-analogi">
+          <div class="card-title">💡 Analogi Pemula:</div>
+          Ibarat mengetik daftar nama dan nilai di kertas buram, lalu dengan perintah <code>pd.DataFrame()</code> kertas itu disulap jadi lembar Excel yang rapi dan siap dihitung.
+        </div>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>2_1_membuat_dataframe.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>import pandas as pd
+import numpy as np
+
+# Membuat DataFrame dari data nilai mahasiswa
+data = {
+    "Nama"   : ["Andi", "Budi", "Citra", "Dewi", "Eko", "Fajar", "Gita"],
+    "JK"     : ["L", "L", "P", "P", "L", "L", "P"],
+    "Usia"   : [19, 20, 18, 21, 20, 19, 20],
+    "UTS"    : [78, 85, 92, 60, 70, 88, 75],
+    "UAS"    : [80, 88, 95, 65, 72, 84, 90]
+}
+
+df = pd.DataFrame(data)
+print(df)</code></pre>
+        </div>
+        <p><strong>Hasil Output Tabel:</strong></p>
+        <div class="terminal-output">    Nama JK  Usia  UTS  UAS
+0   Andi  L    19   78   80
+1   Budi  L    20   85   88
+2  Citra  P    18   92   95
+3   Dewi  P    21   60   65
+4    Eko  L    20   70   72
+5  Fajar  L    19   88   84
+6   Gita  P    20   75   90</div>
+      </div>
+
+      <!-- Sub 2.2 -->
+      <div class="sub-section">
+        <h3>2.2 Tiga Mantra "Rontgen" Data</h3>
+        <p>File proyek: <code>2_2_melihat_ringkasan_data.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>2_2_melihat_ringkasan_data.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code># 1. Menampilkan 3 baris teratas (head)
+print(df.head(3))
+
+# 2. Menampilkan info tipe data & missing value (info)
+print(df.info())
+
+# 3. Menampilkan statistik deskriptif otomatis (describe)
+print(df.describe())</code></pre>
+        </div>
+        <div class="card-callout card-kerja">
+          <div class="card-title">🏢 Di Dunia Kerja (Fraud Detection):</div>
+          Analis Bank BCA/Mandiri selalu mengecek <code>describe()</code> di awal untuk melihat jika ada nominal transaksi kartu kredit yang bernilai negatif atau transaksi anomali ratusan juta pada akun reguler.
+        </div>
+        <p><strong>Hasil Output Describe:</strong></p>
+        <div class="terminal-output">            Usia        UTS        UAS
+count   7.000000   7.000000   7.000000
+mean   19.571429  78.285714  82.000000
+std     0.975900  11.116269  10.535654
+min    18.000000  60.000000  65.000000
+25%    19.000000  72.500000  76.000000
+50%    20.000000  78.000000  84.000000
+75%    20.000000  86.500000  89.000000
+max    21.000000  92.000000  95.000000</div>
+      </div>
+
+    </section>
+
+    <!-- BAB 4: STATISTIK TANPA PUSING -->
+    <section class="chapter" id="bab4">
+      <span class="chapter-tag">BAB IV: STATISTIK DASAR</span>
+      <h2>📐 Memahami Angka Statistik</h2>
+
+      <!-- Sub 2.3 -->
+      <div class="sub-section">
+        <h3>2.3 Ukuran Pemusatan: Mean vs Median</h3>
+        <p>File proyek: <code>2_3_ukuran_pemusatan_data.py</code></p>
+        <div class="card-callout card-analogi">
+          <div class="card-title">💡 Analogi Sultan Masuk Warkop:</div>
+          Jika ada 5 mahasiswa dengan uang saku 10rb lalu tiba-tiba Sultan masuk membawa 1 Miliar, <strong>Rata-rata (Mean)</strong> uang saku seisi warkop jadi 166 Juta per orang! (Angka ini palsu/bias). Tetapi <strong>Median (Nilai Tengah)</strong> tetap 13.500. Itulah alasan kenapa standar gaji selalu memakai Median!
+        </div>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>2_3_ukuran_pemusatan_data.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>print("Rata-rata UTS :", df["UTS"].mean())
+print("Median UAS    :", df["UAS"].median())
+print("Modus Usia    :\n", df["Usia"].mode())
+print("Min UTS :", df["UTS"].min(), "| Max UTS :", df["UTS"].max())</code></pre>
+        </div>
+        <div class="terminal-output">Rata-rata UTS : 78.28571428571429
+Median UAS    : 84.0
+Modus Usia    : 20
+Min UTS : 60 | Max UTS : 92</div>
+      </div>
+
+      <!-- Sub 2.4 -->
+      <div class="sub-section">
+        <h3>2.4 Ukuran Penyebaran (Dispersion): Simpangan Baku</h3>
+        <p>File proyek: <code>2_4_ukuran_penyebaran_data.py</code></p>
+        <p>Simpangan baku (<code>std</code>) mengukur <strong>kekompakan/keseragaman</strong> data. Makin kecil angkanya, data makin seragam dan tidak jomplang.</p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>2_4_ukuran_penyebaran_data.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>rentang = df["UTS"].max() - df["UTS"].min()
+print("Rentang UTS        :", rentang)
+print("Varians UTS        :", df["UTS"].var())
+print("Simpangan baku UTS :", df["UTS"].std())
+print("Kuartil UTS (Q1, Q2, Q3):\n", df["UTS"].quantile([0.25, 0.50, 0.75]))</code></pre>
+        </div>
+        <div class="terminal-output">Rentang UTS        : 32
+Varians UTS        : 123.57142857142857
+Simpangan baku UTS : 11.116268644263172</div>
+      </div>
+
+      <!-- Sub 2.5 -->
+      <div class="sub-section">
+        <h3>2.5 Korelasi Antar Variabel (-1 s/d +1)</h3>
+        <p>File proyek: <code>2_5_korelasi_antar_variabel.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>2_5_korelasi_antar_variabel.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code># Matriks korelasi kolom numerik
+print(df[["Usia", "UTS", "UAS"]].corr())</code></pre>
+        </div>
+        <div class="terminal-output">          Usia       UTS       UAS
+Usia  1.000000 -0.847176 -0.697028
+UTS  -0.847176  1.000000  0.862384
+UAS  -0.697028  0.862384  1.000000</div>
+        <div class="card-callout card-explain">
+          <div class="card-title">📖 Cara Baca Angka Korelasi:</div>
+          Korelasi UTS dan UAS bernilai <strong>+0.862</strong> (Positif Kuat). Artinya: Mahasiswa yang nilai UTS-nya tinggi terbukti hampir pasti nilai UAS-nya juga tinggi.
+        </div>
+      </div>
+
+      <!-- Sub 2.6 -->
+      <div class="sub-section">
+        <h3>2.6 Seleksi dan Filter Data</h3>
+        <p>File proyek: <code>2_6_seleksi_dan_filter_data.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>2_6_seleksi_dan_filter_data.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code># 1. Memilih kolom tertentu
+print(df[["Nama", "UTS"]])
+
+# 2. Filter mahasiswa yang nilainya >= 75
+mahasiswa_lulus = df[df["UTS"] >= 75]
+print("Mahasiswa Lulus UTS:\n", mahasiswa_lulus)
+
+# 3. GroupBy: Rata-rata UAS per jenis kelamin
+print(df.groupby("JK")["UAS"].mean())</code></pre>
+        </div>
+        <div class="terminal-output">Rata-rata UAS per jenis kelamin:
+JK
+L    81.000000
+P    83.333333
+Name: UAS, dtype: float64</div>
+      </div>
+
+      <!-- Sub 2.7 -->
+      <div class="sub-section">
+        <h3>2.7 Latihan Ringkas Statistik</h3>
+        <p>File proyek: <code>2_7_latihan_ringkas.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>2_7_latihan_ringkas.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code># 1. Rata-rata usia mahasiswa
+print("1. Rata-rata usia:", df["Usia"].mean())
+
+# 2. Mahasiswa nilai UTS tertinggi
+print("2. Juara UTS:", df.loc[df["UTS"].idxmax(), "Nama"])
+
+# 3. Simpangan baku UAS
+print("3. Std UAS:", df["UAS"].std())
+
+# 4. Korelasi UTS dan UAS
+print("4. Korelasi UTS & UAS:", df["UTS"].corr(df["UAS"]))
+
+# 5. Rata-rata UAS per gender
+print("5. Rata-rata UAS per JK:\n", df.groupby("JK")["UAS"].mean())</code></pre>
+        </div>
+        <div class="terminal-output">1. Rata-rata usia: 19.571428571428573
+2. Juara UTS: Citra (Nilai: 92)
+3. Std UAS: 10.535653752852738
+4. Korelasi UTS & UAS: 0.8623843183249794
+5. Rata-rata UAS per JK:
+JK
+L    81.000000
+P    83.333333</div>
+      </div>
+
+    </section>
+
+    <!-- BAB 5: VISUAL STORYTELLING DENGAN GAMBAR RIIL -->
+    <section class="chapter" id="bab5">
+      <span class="chapter-tag">BAB V: VISUALISASI LENGKAP &amp; GAMBAR</span>
+      <h2>🎨 Galeri 8 Grafik &amp; Bedah Proyek Asli</h2>
+      <p>Berikut adalah seluruh kodingan visualisasi dari sub-bab 3.1 hingga 3.8 beserta <strong>gambar hasil eksekusi riil</strong> dan cara membacanya:</p>
+
+      <!-- 3.1 Line Chart -->
+      <div class="sub-section">
+        <h3>3.1 Line Chart: Tren Penjualan Bulanan</h3>
+        <p>File proyek: <code>3_1_grafik_garis.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_1_grafik_garis.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>import matplotlib.pyplot as plt
+
+bulan     = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul"]
+penjualan = [12, 15, 13, 18, 20, 17, 25]
+
+plt.figure(figsize=(7, 4.5))
+plt.plot(bulan, penjualan, marker="o", color="blue", linewidth=2)
+plt.title("Tren Penjualan per Bulan")
+plt.xlabel("Bulan")
+plt.ylabel("Penjualan (juta rupiah)")
+plt.grid(True)
+plt.savefig("3_1_line_chart.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+        
+        <div class="chart-box">
+          <img src="3_1_line_chart.png" alt="Line Chart Tren Penjualan" class="chart-preview">
+          <div class="chart-caption">Gambar 3.1: Line chart tren penjualan bulanan Januari s/d Juli</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Penjelasan Hasil Gambar 3.1:</div>
+          Garis biru menunjukkan arah pergerakan omset. Terlihat ada tren kenaikan umum (uptrend) dari Januari (12 juta) hingga puncaknya di Juli (25 juta). Sempat terjadi sedikit penurunan di bulan Juni (17 juta) sebelum melesat kembali. Grafik garis paling cocok untuk data deret waktu seperti ini!
+        </div>
+      </div>
+
+      <!-- 3.2 Bar Chart -->
+      <div class="sub-section">
+        <h3>3.2 Bar Chart: Rata-rata UAS Berdasarkan Gender</h3>
+        <p>File proyek: <code>3_2_diagram_batang.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_2_diagram_batang.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>rata_per_jk = df.groupby("JK")["UAS"].mean()
+
+plt.figure(figsize=(6, 4.5))
+plt.bar(rata_per_jk.index, rata_per_jk.values, color=["skyblue", "salmon"], edgecolor="black")
+plt.title("Rata-rata UAS Berdasarkan Jenis Kelamin")
+plt.xlabel("Jenis Kelamin")
+plt.ylabel("Rata-rata UAS")
+plt.savefig("3_2_bar_chart.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+
+        <div class="chart-box">
+          <img src="3_2_bar_chart.png" alt="Bar Chart Rata-rata UAS" class="chart-preview">
+          <div class="chart-caption">Gambar 3.2: Bar chart perbandingan rata-rata UAS Laki-laki vs Perempuan</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Penjelasan Hasil Gambar 3.2:</div>
+          Tiang biru muda (Laki-laki) memiliki tinggi 81.0, sedangkan tiang salmon (Perempuan) mencapai tinggi 83.3. Mata manusia dapat langsung menangkap selisih tinggi antar kategori dengan presisi instan.
+        </div>
+      </div>
+
+      <!-- 3.3 Histogram -->
+      <div class="sub-section">
+        <h3>3.3 Histogram: Sebaran Nilai UTS</h3>
+        <p>File proyek: <code>3_3_histogram.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_3_histogram.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>plt.figure(figsize=(7, 4.5))
+plt.hist(df["UTS"], bins=5, color="green", edgecolor="black")
+plt.title("Distribusi Nilai UTS")
+plt.xlabel("Nilai UTS")
+plt.ylabel("Frekuensi")
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+plt.savefig("3_3_histogram.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+
+        <div class="chart-box">
+          <img src="3_3_histogram.png" alt="Histogram Nilai UTS" class="chart-preview">
+          <div class="chart-caption">Gambar 3.3: Histogram sebaran frekuensi nilai UTS (5 keranjang)</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Penjelasan Hasil Gambar 3.3:</div>
+          Parameter <code>bins=5</code> membagi nilai menjadi 5 interval rentang. Balok hijau tertinggi berada di rentang nilai 75–90, menandakan mayoritas mahasiswa kelas berada pada kelompok nilai menengah ke atas.
+        </div>
+      </div>
+
+      <!-- 3.4 Scatter Plot -->
+      <div class="sub-section">
+        <h3>3.4 Scatter Plot: Hubungan Nilai UTS dan UAS</h3>
+        <p>File proyek: <code>3_4_scatter_plot.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_4_scatter_plot.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>plt.figure(figsize=(6.5, 4.5))
+plt.scatter(df["UTS"], df["UAS"], color="purple", s=70, edgecolors="black")
+plt.title("Hubungan Nilai UTS dan UAS")
+plt.xlabel("Nilai UTS")
+plt.ylabel("Nilai UAS")
+plt.grid(True, linestyle="--", alpha=0.7)
+plt.savefig("3_4_scatter_plot.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+
+        <div class="chart-box">
+          <img src="3_4_scatter_plot.png" alt="Scatter Plot UTS vs UAS" class="chart-preview">
+          <div class="chart-caption">Gambar 3.4: Scatter plot koordinat nilai UTS vs UAS</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Penjelasan Hasil Gambar 3.4:</div>
+          Setiap titik ungu merepresentasikan 1 mahasiswa. Terlihat jelas bahwa titik-titik membentuk pola diagonal yang naik dari kiri-bawah ke kanan-atas. Ini membuktikan secara visual adanya korelasi positif yang kuat antara UTS dan UAS.
+        </div>
+      </div>
+
+      <!-- 3.5 Boxplot -->
+      <div class="sub-section">
+        <h3>3.5 Boxplot: Deteksi Sebaran &amp; Outlier Nilai UAS</h3>
+        <p>File proyek: <code>3_5_boxplot.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_5_boxplot.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>import seaborn as sns
+
+plt.figure(figsize=(6, 4.5))
+sns.boxplot(y=df["UAS"], color="orange")
+plt.title("Boxplot Nilai UAS")
+plt.ylabel("Nilai UAS")
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+plt.savefig("3_5_boxplot.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+
+        <div class="chart-box">
+          <img src="3_5_boxplot.png" alt="Boxplot Nilai UAS" class="chart-preview">
+          <div class="chart-caption">Gambar 3.5: Boxplot sebaran 5 angka ringkasan nilai UAS</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Penjelasan Hasil Gambar 3.5:</div>
+          Garis horizontal tebal di tengah kotak oranye adalah <strong>Median (84.0)</strong>. Kotak mencakup 50% data di rentang Q1 (76) hingga Q3 (89). Ujung kumis bawah adalah nilai terendah (65) dan ujung kumis atas adalah nilai tertinggi (95). Karena tidak ada titik terisolasi di luar kumis, data UAS dinyatakan bebas dari nilai pencilan (*outlier*).
+        </div>
+      </div>
+
+      <!-- 3.6 Pie Chart -->
+      <div class="sub-section">
+        <h3>3.6 Pie Chart: Proporsi Jenis Kelamin</h3>
+        <p>File proyek: <code>3_6_pie_chart.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_6_pie_chart.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>komposisi = df["JK"].value_counts()
+
+plt.figure(figsize=(5.5, 5.5))
+plt.pie(
+    komposisi.values,
+    labels=komposisi.index,
+    autopct="%1.1f%%",
+    startangle=90,
+    colors=["skyblue", "salmon"],
+    wedgeprops={"edgecolor": "black", "linewidth": 1}
+)
+plt.title("Komposisi Jenis Kelamin Mahasiswa")
+plt.savefig("3_6_pie_chart.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+
+        <div class="chart-box">
+          <img src="3_6_pie_chart.png" alt="Pie Chart Gender" class="chart-preview">
+          <div class="chart-caption">Gambar 3.6: Pie chart persentase mahasiswa Laki-laki vs Perempuan</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Penjelasan Hasil Gambar 3.6:</div>
+          Dari total 7 mahasiswa, kelompok Laki-laki (4 orang) menguasai <strong>57.1%</strong> porsi lingkaran, sedangkan Perempuan (3 orang) menguasai <strong>42.9%</strong>.
+        </div>
+      </div>
+
+      <!-- 3.7 Heatmap -->
+      <div class="sub-section">
+        <h3>3.7 Heatmap Korelasi Warna Pintar</h3>
+        <p>File proyek: <code>3_7_heatmap_korelasi.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_7_heatmap_korelasi.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>plt.figure(figsize=(5.5, 4.5))
+sns.heatmap(
+    df[["Usia", "UTS", "UAS"]].corr(),
+    annot=True,
+    cmap="coolwarm",
+    fmt=".2f",
+    square=True,
+    linewidths=0.5
+)
+plt.title("Heatmap Korelasi Antar Variabel")
+plt.savefig("3_7_heatmap.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+
+        <div class="chart-box">
+          <img src="3_7_heatmap.png" alt="Heatmap Korelasi" class="chart-preview">
+          <div class="chart-caption">Gambar 3.7: Heatmap korelasi matriks dengan skema warna coolwarm</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Penjelasan Hasil Gambar 3.7:</div>
+          Warna merah menyala pada pertemuan sel UTS dan UAS (angka <strong>0.86</strong>) langsung menandakan korelasi positif yang sangat kuat. Sementara kotak biru menunjukkan korelasi negatif antara Usia dengan nilai ujian.
+        </div>
+      </div>
+
+      <!-- 3.8 Menyimpan Gambar -->
+      <div class="sub-section">
+        <h3>3.8 Menyimpan Hasil Visualisasi (DPI 150)</h3>
+        <p>File proyek: <code>3_8_menyimpan_gambar.py</code></p>
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span>3_8_menyimpan_gambar.py</span>
+            <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+          </div>
+          <pre><code>plt.figure(figsize=(8, 5))
+plt.hist(df["UAS"], bins=5, color="teal", edgecolor="black")
+plt.title("Distribusi Nilai UAS")
+plt.xlabel("Nilai UAS")
+plt.ylabel("Frekuensi")
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+
+# Simpan ke file gambar
+plt.savefig("histogram_uas.png", dpi=150, bbox_inches="tight")
+plt.show()</code></pre>
+        </div>
+
+        <div class="chart-box">
+          <img src="histogram_uas.png" alt="Histogram UAS Hasil Savefig" class="chart-preview">
+          <div class="chart-caption">Gambar 3.8: File histogram_uas.png beresolusi 150 DPI siap cetak</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- BAB 6: STUDI KASUS & TUGAS PRAKTIKUM DENGAN 5 GAMBAR LENGKAP -->
+    <section class="chapter" id="bab6">
+      <span class="chapter-tag">BAB VI: STUDI KASUS &amp; TUGAS</span>
+      <h2>📝 Bedah Tugas Praktikum (Data 10 Mahasiswa)</h2>
+      <p>Berikut adalah implementasi penuh dari proyek studi kasus 10 mahasiswa di file <code>tugas_praktikum1.py</code> beserta <strong>5 gambar visualisasi yang dihasilkan</strong>:</p>
+
+      <div class="code-wrapper">
+        <div class="code-header">
+          <span>tugas_praktikum1.py (Data &amp; Statistik)</span>
+          <button class="btn-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data_tugas = {
+    "Nama": ["Andi", "Budi", "Citra", "Dewi", "Eko", "Fajar", "Gita", "Hadi", "Indah", "Joko"],
+    "JK": ["L", "L", "P", "P", "L", "L", "P", "L", "P", "L"],
+    "Usia": [19, 20, 18, 21, 20, 19, 20, 22, 19, 21],
+    "UTS": [78, 85, 92, 60, 70, 88, 75, 82, 90, 65],
+    "UAS": [80, 88, 95, 65, 72, 84, 90, 85, 92, 70],
+    "Absensi": [85, 90, 95, 70, 75, 90, 85, 88, 95, 72]
+}
+
+df_tugas = pd.DataFrame(data_tugas)
+print(df_tugas.describe())
+
+# Uji Korelasi Absensi vs UAS:
+korelasi = df_tugas["Absensi"].corr(df_tugas["UAS"])
+print(f"Korelasi Absensi & UAS: {korelasi:.4f}") # Output: 0.9519</code></pre>
+      </div>
+
+      <!-- Tugas 1 Gambar: Histogram UTS -->
+      <div class="sub-section">
+        <h3>1. Histogram Nilai UTS</h3>
+        <div class="chart-box">
+          <img src="tugas_1_histogram_uts.png" alt="Tugas 1 Histogram UTS" class="chart-preview">
+          <div class="chart-caption">Gambar Tugas 1: Histogram distribusi frekuensi nilai UTS 10 mahasiswa</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Analisis Gambar:</div>
+          Sebaran nilai UTS memiliki rata-rata 78.50. Gunung frekuensi tertinggi berada di rentang 80–90, menunjukkan kualitas pemahaman materi ujian tengah semester mahasiswa sangat memuaskan.
+        </div>
+      </div>
+
+      <!-- Tugas 2 Gambar: Boxplot UAS -->
+      <div class="sub-section">
+        <h3>2. Boxplot Nilai UAS</h3>
+        <div class="chart-box">
+          <img src="tugas_2_boxplot_uas.png" alt="Tugas 2 Boxplot UAS" class="chart-preview">
+          <div class="chart-caption">Gambar Tugas 2: Boxplot sebaran nilai UAS &amp; uji outlier</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Analisis Gambar:</div>
+          Median nilai UAS berada di angka 84.50. Rentang interkuartil (IQR) berada di antara 74 (Q1) dan 89.5 (Q3). Tidak ada titik di luar kumis batas wajar (65 s/d 95), yang berarti data terdistribusi secara sehat tanpa outlier ekstrem.
+        </div>
+      </div>
+
+      <!-- Tugas 3 Gambar: Scatter UTS vs UAS -->
+      <div class="sub-section">
+        <h3>3. Scatter Plot: Hubungan Nilai UTS vs UAS</h3>
+        <div class="chart-box">
+          <img src="tugas_3_scatter_uts_uas.png" alt="Tugas 3 Scatter UTS vs UAS" class="chart-preview">
+          <div class="chart-caption">Gambar Tugas 3: Diagram sebar nilai UTS vs nilai UAS 10 mahasiswa</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Analisis Gambar:</div>
+          Titik-titik ungu membentuk formasi garis naik yang sangat konsisten. Mahasiswa dengan nilai UTS rendah (Dewi: 60) mendapat UAS rendah (65), sedangkan mahasiswa dengan UTS tinggi (Citra: 92) meraih UAS tertinggi (95).
+        </div>
+      </div>
+
+      <!-- Tugas 4 Gambar: Bar Chart Gender -->
+      <div class="sub-section">
+        <h3>4. Bar Chart: Rata-rata UAS Berdasarkan Gender</h3>
+        <div class="chart-box">
+          <img src="tugas_4_barchart_uas_jk.png" alt="Tugas 4 Bar Chart Gender" class="chart-preview">
+          <div class="chart-caption">Gambar Tugas 4: Perbandingan rata-rata UAS mahasiswa Pria vs Wanita</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Analisis Gambar:</div>
+          Kelompok mahasiswa perempuan (P) meraih rata-rata UAS sebesar 85.50, unggul tipis dari kelompok mahasiswa laki-laki (L) dengan rata-rata 79.83.
+        </div>
+      </div>
+
+      <!-- Tugas 5 Gambar: Heatmap Korelasi -->
+      <div class="sub-section">
+        <h3>5. Heatmap Korelasi Seluruh Kolom Numerik</h3>
+        <div class="chart-box">
+          <img src="tugas_5_heatmap_korelasi.png" alt="Tugas 5 Heatmap Korelasi" class="chart-preview">
+          <div class="chart-caption">Gambar Tugas 5: Matriks korelasi lengkap antarkolom numerik</div>
+        </div>
+        <div class="card-callout card-explain">
+          <div class="card-title">🔍 Analisis Gambar:</div>
+          Kotak merah paling terang berada pada hubungan antara <strong>Absensi dan UAS (0.95)</strong> dan <strong>UTS dan UAS (0.98)</strong>. Ini memberikan bukti statistik kuat bahwa mahasiswa yang rajin hadir secara konsisten memiliki prestasi akademik yang sangat cemerlang.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- BAB 7: PEDOMAN MENGAJAR 50 MENIT -->
+    <section class="chapter" id="bab7">
+      <span class="chapter-tag">BAB VII: TIPS INSTRUKTUR</span>
+      <h2>⏱️ Strategi Mengajar Efektif 50 Menit</h2>
+      <div class="card-callout card-tips">
+        <div class="card-title">⚡ Jangan Biarkan Mahasiswa Mengetik dari Nol!</div>
+        Waktu 50 menit akan habis jika mahasiswa mengetik kode dari baris pertama. Berikan starter notebook <code>praktikum1.ipynb</code>, ajak mereka menjalankan sel, mengganti nilai parameter, dan mendiskusikan outputnya.
+      </div>
+      <ol>
+        <li><strong>00–05 mnt:</strong> The Hook: Kisah sukses Data Mining (popok &amp; kopi).</li>
+        <li><strong>05–15 mnt:</strong> Rontgen data dengan <code>info()</code> dan <code>describe()</code>.</li>
+        <li><strong>15–30 mnt:</strong> Konsep Sultan Warkop (Mean vs Median) &amp; Korelasi.</li>
+        <li><strong>30–45 mnt:</strong> Tunjukkan 3 grafik visual (Histogram, Boxplot, Heatmap).</li>
+        <li><strong>45–50 mnt:</strong> Penugasan mandiri ekspor 5 grafik di <code>tugas_praktikum1.py</code>.</li>
+      </ol>
+    </section>
+
+    <!-- BAB 8: KAMUS ERROR -->
+    <section class="chapter" id="bab8">
+      <span class="chapter-tag">BAB VIII: BANTUAN DARURAT</span>
+      <h2>🚨 Kamus Error Mahasiswa</h2>
+
+      <div class="card-callout card-error">
+        <div class="card-title">1. ModuleNotFoundError: No module named 'matplotlib'</div>
+        <strong>Solusi:</strong> Buka terminal, ketik: <code>pip install matplotlib seaborn pandas numpy</code>
+      </div>
+
+      <div class="card-callout card-error">
+        <div class="card-title">2. KeyError: 'uts'</div>
+        <strong>Solusi:</strong> Huruf kapital tidak cocok. Kolom data bernama <code>"UTS"</code>, bukan <code>"uts"</code>.
+      </div>
+
+      <div class="card-callout card-error">
+        <div class="card-title">3. Grafik tidak muncul di layar!</div>
+        <strong>Solusi:</strong> Pastikan di baris terakhir kode ditutup dengan <code>plt.show()</code>.
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Bottom Nav Bar -->
+  <nav class="bottom-bar">
+    <button class="bottom-btn active" onclick="scrollToSection('bab1')">
+      <span>🕵️</span>
+      <div>Konsep</div>
+    </button>
+    <button class="bottom-btn" onclick="scrollToSection('bab3')">
+      <span>📊</span>
+      <div>Data</div>
+    </button>
+    <button class="bottom-btn" onclick="scrollToSection('bab4')">
+      <span>📐</span>
+      <div>Statistik</div>
+    </button>
+    <button class="bottom-btn" onclick="scrollToSection('bab5')">
+      <span>🎨</span>
+      <div>Grafik</div>
+    </button>
+    <button class="bottom-btn" onclick="scrollToSection('bab6')">
+      <span>📝</span>
+      <div>Tugas</div>
+    </button>
+  </nav>
+
+  <!-- Slide-in Drawer -->
+  <div id="drawer-overlay" onclick="toggleDrawer()"></div>
+  <aside id="drawer">
+    <div class="drawer-title">📑 Daftar Isi Modul</div>
+    <ul class="drawer-nav">
+      <li><a href="#bab1" onclick="toggleDrawer()">Bab I: Mindset Detektif Data</a></li>
+      <li><a href="#bab2" onclick="toggleDrawer()">Bab II: Panca-Indera Library</a></li>
+      <li><a href="#bab3" onclick="toggleDrawer()">Bab III: Eksplorasi DataFrame</a></li>
+      <li><a href="#bab4" onclick="toggleDrawer()">Bab IV: Statistik &amp; Korelasi</a></li>
+      <li><a href="#bab5" onclick="toggleDrawer()">Bab V: Galeri 8 Grafik Riil</a></li>
+      <li><a href="#bab6" onclick="toggleDrawer()">Bab VI: Studi Kasus 10 Mahasiswa</a></li>
+      <li><a href="#bab7" onclick="toggleDrawer()">Bab VII: Tips Mengajar 50 Menit</a></li>
+      <li><a href="#bab8" onclick="toggleDrawer()">Bab VIII: Kamus Error Pemula</a></li>
+    </ul>
+  </aside>
+
+  <script>
+    // Progress Bar Scroll
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    // Dark Mode Toggle
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      if (current === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        themeBtn.innerText = '🌓';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeBtn.innerText = '☀️';
+      }
+    });
+
+    // Drawer Toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawer-overlay');
+
+    function toggleDrawer() {
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
+    menuBtn.addEventListener('click', toggleDrawer);
+
+    // Smooth Scroll Helper
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        document.querySelectorAll('.bottom-btn').forEach(btn => btn.classList.remove('active'));
+        if (event && event.currentTarget) {
+          event.currentTarget.classList.add('active');
+        }
+      }
+    }
+
+    // Copy Code to Clipboard
+    function copyCode(btn) {
+      const pre = btn.parentElement.nextElementSibling;
+      const code = pre.querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = 'Disalin! ✓';
+        btn.style.background = '#10b981';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = '';
+        }, 2000);
+      });
+    }
+
+    // Quick Search Filter
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      const chapters = document.querySelectorAll('.chapter');
+      chapters.forEach(chap => {
+        const text = chap.innerText.toLowerCase();
+        if (text.includes(query)) {
+          chap.style.display = 'block';
+        } else {
+          chap.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
